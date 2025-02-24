@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function SmtpMessage() {
   return (
-    <div className="flex gap-4 rounded-md border bg-muted/50 px-5 py-3">
+    <div className="mx-auto flex gap-4 rounded-2xl border bg-muted/50 px-5 py-3">
       <InfoIcon size={16} className="mt-0.5" />
       <div className="flex flex-col gap-1">
         <small className="text-sm text-secondary-foreground">

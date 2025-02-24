@@ -49,9 +49,7 @@ export default function RootLayout({
                   </div>
                 </header>
                 {/* Content */}
-                <div className="flex max-w-2xl flex-grow flex-col p-5">
-                  {children}
-                </div>
+                {children}
                 {/* Footer */}
                 {/* <footer className="w-full flex items-center justify-center  mx-auto text-center text-xs gap-8 py-6"> */}
                 {/*   <p> */}
@@ -67,7 +65,7 @@ export default function RootLayout({
                 {/*   </p> */}
                 {/* </footer> */}
                 {/* Mobile Nav Bar */}
-                <BottomNavigationBar />
+                {/* <BottomNavigationBar /> */}
               </div>
             </main>
           </TooltipProvider>
