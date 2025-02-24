@@ -1,19 +1,9 @@
 import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import {
-  LucideBookmark,
-  LucidePlus,
-  LucideSettings,
-  LucideTag,
-  LucideTags,
-} from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import MobileNavBar from "@/components/mobile-nav-bar";
 
 const defaultUrl = process.env.VERCEL_URL
