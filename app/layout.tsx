@@ -37,19 +37,19 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <main className="min-h-screen flex flex-col items-center">
-              <div className="flex-1 w-full flex flex-col  items-center">
+            <main className="flex min-h-screen flex-col items-center">
+              <div className="flex w-full flex-1 flex-col items-center">
                 {/* Header */}
                 <header className="sticky top-0 z-50 flex h-16 w-full justify-center border-b border-b-foreground/10 bg-background/95 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
-                  <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                    <p className="font-medium text-lg">{metadata.title}</p>
-                    <nav className="flex flex-row gap-2 items-center">
+                  <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
+                    <p className="text-lg font-medium">{metadata.title}</p>
+                    <nav className="flex flex-row items-center gap-2">
                       {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                     </nav>
                   </div>
                 </header>
                 {/* Content */}
-                <div className="flex flex-grow flex-col max-w-5xl p-5">
+                <div className="flex max-w-5xl flex-grow flex-col p-5">
                   {children}
                 </div>
                 {/* Footer */}

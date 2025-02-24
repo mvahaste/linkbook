@@ -1,7 +1,7 @@
 export default function SettingsPage() {
   return (
     <>
-      <p className="text-muted-foreground text-sm text-center pt-8">Settings</p>
+      <p className="pt-8 text-center text-sm text-muted-foreground">Settings</p>
     </>
   );
 }
