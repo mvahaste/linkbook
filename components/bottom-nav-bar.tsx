@@ -63,8 +63,8 @@ export default function BottomNavigationBar() {
   }, [handleKeyPress]);
 
   return (
-    <div className="sticky bottom-0 z-50 h-16 w-full border-t border-t-foreground/10 bg-background/95 px-6 py-3 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex w-full max-w-lg flex-row items-center justify-between">
+    <div className="sticky bottom-0 z-50 h-16 w-full border-t border-t-foreground/10 bg-background/95 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
+      <div className="mx-auto flex w-full max-w-2xl flex-row items-center justify-between px-5 py-3">
         {navItems.map(({ key, label, href, icon: Icon }) => (
           <Button
             key={key}
@@ -72,7 +72,7 @@ export default function BottomNavigationBar() {
             asChild
             variant={pathname === href ? "default" : "ghost"}
           >
-            <Link href={href} className="inline-flex items-center gap-1">
+            <Link href={href} className="inline-flex items-center gap-1.5">
               <Icon />
               <span className="hidden xs:inline">{label}</span>
             </Link>

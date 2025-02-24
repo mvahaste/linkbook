@@ -41,7 +41,7 @@ export default function RootLayout({
               <div className="flex w-full flex-1 flex-col items-center">
                 {/* Header */}
                 <header className="sticky top-0 z-50 flex h-16 w-full justify-center border-b border-b-foreground/10 bg-background/95 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
-                  <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
+                  <div className="flex w-full max-w-2xl items-center justify-between p-3 px-5 text-sm">
                     <p className="text-lg font-medium">{metadata.title}</p>
                     <nav className="flex flex-row items-center gap-2">
                       {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
@@ -49,7 +49,7 @@ export default function RootLayout({
                   </div>
                 </header>
                 {/* Content */}
-                <div className="flex max-w-5xl flex-grow flex-col p-5">
+                <div className="flex max-w-2xl flex-grow flex-col p-5">
                   {children}
                 </div>
                 {/* Footer */}
