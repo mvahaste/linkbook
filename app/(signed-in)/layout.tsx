@@ -6,11 +6,9 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <div className="flex w-full max-w-2xl flex-grow flex-col p-5">
-        {children}
-      </div>
+    <div className="flex w-full flex-grow flex-col">
+      <div className="mx-auto w-full max-w-2xl flex-grow p-5">{children}</div>
       <BottomNavigationBar />
-    </>
+    </div>
   );
 }
