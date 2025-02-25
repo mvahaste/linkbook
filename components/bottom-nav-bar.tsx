@@ -29,12 +29,11 @@ export default function BottomNavigationBar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Define shortcuts dynamically
   useShortcuts(
     navItems.reduce(
       (acc, item) => ({
         ...acc,
-        [item.key]: () => router.push(item.href),
+        [item.key]: () => router.replace(item.href),
       }),
       {} as Record<string, () => void>,
     ),
