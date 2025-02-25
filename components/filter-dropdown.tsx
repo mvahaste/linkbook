@@ -1,14 +1,18 @@
 "use client";
 
-import { LucideSlidersHorizontal } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { LucideCheck, LucideSlidersHorizontal } from "lucide-react";
 import { Button } from "./ui/button";
-import { Tag } from "@/lib/utils";
+import { cn, Tag } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "./ui/command";
+import { useState } from "react";
 
 interface FilterDropdownProps {
   filterTags: Tag[];
@@ -21,6 +25,8 @@ export default function FilterDropdown({
   selected,
   onChangeAction,
 }: FilterDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleToggle = (tagId: number) => {
     const newSelection = selected.includes(tagId)
       ? selected.filter((id) => id !== tagId)
@@ -29,34 +35,46 @@ export default function FilterDropdown({
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
-          <LucideSlidersHorizontal className="h-4 w-4" />
-          Filter
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="max-h-72 overflow-scroll">
-        <DropdownMenuCheckboxItem
-          checked={selected.length === 0}
-          onCheckedChange={() => onChangeAction([])}
-          onSelect={(event) => event.preventDefault()}
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={isOpen}
+          className="flex gap-2"
         >
-          All
-        </DropdownMenuCheckboxItem>
-        {filterTags
-          .sort((a, b) => a.label.localeCompare(b.label))
-          .map((tag) => (
-            <DropdownMenuCheckboxItem
-              key={tag.id}
-              checked={selected.includes(tag.id)}
-              onCheckedChange={() => handleToggle(tag.id)}
-              onSelect={(event) => event.preventDefault()}
-            >
-              {tag.label}
-            </DropdownMenuCheckboxItem>
-          ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <LucideSlidersHorizontal className="h-4 w-4" />
+          Tags
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="Search tags..." />
+          <CommandList>
+            <CommandEmpty>No tags found.</CommandEmpty>
+            <CommandGroup>
+              {filterTags.map((tag) => (
+                <CommandItem
+                  key={tag.id}
+                  value={tag.label} // Ensure the value is a string (consistent with CommandItem's expectations)
+                  onSelect={() => handleToggle(tag.id)} // Handle toggle on selection
+                >
+                  <LucideCheck
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      selected.includes(tag.id) ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                  {tag.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
+}
+function useMediaQuery(arg0: string) {
+  throw new Error("Function not implemented.");
 }
