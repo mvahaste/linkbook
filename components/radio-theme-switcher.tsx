@@ -11,17 +11,17 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 const RadioThemeSwitcher = () => {
-  const [mounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
-    setMounted(true);
+    setIsMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  // if (!mounted) {
+  //   return null;
+  // }
 
   return (
     <div className="flex flex-col gap-4">
@@ -33,7 +33,7 @@ const RadioThemeSwitcher = () => {
         }}
       >
         <div className="grid aspect-square h-4 w-4 place-items-center rounded-full border border-foreground text-foreground ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-          {theme === "system" && (
+          {isMounted && theme === "system" && (
             <div className="h-2.5 w-2.5 rounded-full bg-foreground" />
           )}
         </div>
@@ -48,7 +48,7 @@ const RadioThemeSwitcher = () => {
         }}
       >
         <div className="grid aspect-square h-4 w-4 place-items-center rounded-full border border-foreground text-foreground ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-          {theme === "dark" && (
+          {isMounted && theme === "dark" && (
             <div className="h-2.5 w-2.5 rounded-full bg-foreground" />
           )}
         </div>
@@ -63,7 +63,7 @@ const RadioThemeSwitcher = () => {
         }}
       >
         <div className="grid aspect-square h-4 w-4 place-items-center rounded-full border border-foreground text-foreground ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-          {theme === "light" && (
+          {isMounted && theme === "light" && (
             <div className="h-2.5 w-2.5 rounded-full bg-foreground" />
           )}
         </div>

@@ -14,14 +14,14 @@ export default function SettingsPage() {
   useEffect(() => {
     async function fetchUser() {
       const supabase = createClient();
-      const { data, error } = await supabase.auth.getUser();
+      const { data, error } = await supabase.auth.getSession();
 
       if (error) {
         console.error(error);
         return;
       }
 
-      setUser(data.user);
+      setUser(data?.session?.user ?? null);
       setIsLoadingUser(false);
     }
 
