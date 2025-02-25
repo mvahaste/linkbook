@@ -5,7 +5,6 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import BottomNavigationBar from "@/components/bottom-nav-bar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
