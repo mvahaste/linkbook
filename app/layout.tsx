@@ -47,24 +47,7 @@ export default function RootLayout({
                     </nav>
                   </div>
                 </header>
-                {/* Content */}
                 {children}
-                {/* Footer */}
-                {/* <footer className="w-full flex items-center justify-center  mx-auto text-center text-xs gap-8 py-6"> */}
-                {/*   <p> */}
-                {/*     View the source code on{" "} */}
-                {/*     <a */}
-                {/*       href="https://github.com/mvahaste/linkbook" */}
-                {/*       target="_blank" */}
-                {/*       className="font-bold hover:underline" */}
-                {/*       rel="noreferrer" */}
-                {/*     > */}
-                {/*       GitHub */}
-                {/*     </a> */}
-                {/*   </p> */}
-                {/* </footer> */}
-                {/* Mobile Nav Bar */}
-                {/* <BottomNavigationBar /> */}
               </div>
             </main>
           </TooltipProvider>
