@@ -28,6 +28,12 @@ export default function FilterDropdown({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = (tagId: number) => {
+    if (tagId === -1) {
+      onChangeAction([]);
+
+      return;
+    }
+
     const newSelection = selected.includes(tagId)
       ? selected.filter((id) => id !== tagId)
       : [...selected, tagId];
@@ -53,6 +59,15 @@ export default function FilterDropdown({
           <CommandList>
             <CommandEmpty>No tags found.</CommandEmpty>
             <CommandGroup>
+              <CommandItem value="all" onSelect={() => handleToggle(-1)}>
+                <LucideCheck
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    selected.length === 0 ? "opacity-100" : "opacity-0",
+                  )}
+                />
+                All
+              </CommandItem>
               {filterTags
                 .sort((a: Tag, b: Tag) => {
                   return a.label.localeCompare(b.label);
