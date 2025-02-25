@@ -1,9 +1,19 @@
 "use client";
 
 import BookmarkComponent from "@/components/bookmark";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getBookmarks } from "@/lib/api";
 import { Bookmark } from "@/lib/utils";
+import { ArrowUpDown, Search, SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function BookmarksPage() {
@@ -15,6 +25,39 @@ export default function BookmarksPage() {
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-3 h-4 w-4 text-muted-foreground" />
+          <Input className="pl-10" placeholder="Search..." type="search" />
+        </div>
+        <div className="flex items-center gap-2">
+          <p className="flex-grow text-sm text-muted-foreground">3 results</p>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <ArrowUpDown className="mr-2 h-4 w-4" />
+                Sort
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-[200px]">
+              <DropdownMenuRadioGroup value="recent">
+                <DropdownMenuRadioItem value="recent">
+                  Most Recent
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="oldest">
+                  Oldest First
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="az">
+                  Title A-Z
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="za">
+                  Title Z-A
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
       {bookmarks.map((bookmark) => (
         <BookmarkComponent key={bookmark.id} bookmark={bookmark} />
       ))}
