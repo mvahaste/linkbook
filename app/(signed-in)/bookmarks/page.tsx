@@ -1,13 +1,13 @@
 "use client";
 
 import BookmarkComponent from "@/components/bookmark";
+import FadingSkeletons from "@/components/fading-skeletons";
 import SearchSortFilter from "@/components/search-sort-filter";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getBookmarks, getTags } from "@/lib/api";
-import { Bookmark, Tag } from "@/lib/utils";
+import { useBookmarks, useTags } from "@/lib/useApi";
 import { LucideX } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function BookmarksPage() {
   const {
@@ -22,7 +22,9 @@ export default function BookmarksPage() {
       <SearchSortFilter filterTags={tags} />
 
       {bookmarksError && <ErrorMessage error={bookmarksError} />}
-      {bookmarksStatus === "loading" && <LoadingSkeleton />}
+      {bookmarksStatus === "loading" && (
+        <FadingSkeletons count={7} skeletonClassName="h-20" />
+      )}
       {bookmarksStatus !== "loading" && bookmarks.length === 0 && (
         <EmptyState />
       )}
@@ -32,62 +34,6 @@ export default function BookmarksPage() {
         bookmarks.map((bookmark) => (
           <BookmarkComponent key={bookmark.id} bookmark={bookmark} />
         ))}
-    </div>
-  );
-}
-
-function useTags() {
-  const [status, setStatus] = useState<"loading" | "error" | "success">(
-    "loading",
-  );
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    getTags()
-      .then((data) => {
-        setTags(data);
-        setStatus("success");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err);
-        setStatus("error");
-      });
-  }, []);
-
-  return { tags, status, error };
-}
-
-function useBookmarks() {
-  const [status, setStatus] = useState<"loading" | "error" | "success">(
-    "loading",
-  );
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    getBookmarks()
-      .then((data) => {
-        setBookmarks(data);
-        setStatus("success");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err);
-        setStatus("error");
-      });
-  }, []);
-
-  return { bookmarks, status, error };
-}
-
-function LoadingSkeleton() {
-  return (
-    <div className="flex flex-col gap-4">
-      {[...Array(4)].map((_, i) => (
-        <Skeleton key={i} className="h-20 opacity-75" />
-      ))}
     </div>
   );
 }

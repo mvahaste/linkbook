@@ -2,21 +2,29 @@ import { Bookmark, titleToAvatar } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { LucideEllipsisVertical } from "lucide-react";
+import Link from "next/link";
 
-interface BookmarkProps {
+interface BookmarkComponentProps {
   bookmark: Bookmark;
 }
 
-export default function BookmarkComponent({ bookmark }: BookmarkProps) {
+export default function BookmarkComponent({
+  bookmark,
+}: BookmarkComponentProps) {
   return (
-    <div
+    <a
+      href={bookmark.url}
+      target="_blank"
+      rel="noopener noreferrer"
       key={bookmark.id}
-      className="flex flex-row gap-4 rounded-2xl border p-4 transition-colors duration-150 ease-in-out hover:cursor-pointer hover:bg-muted/50"
-      onClick={() => window.open(bookmark.url, "_blank", "noopener,noreferrer")}
+      className="flex flex-row gap-4 rounded-2xl border p-4 transition-colors duration-150 ease-in-out hover:cursor-pointer hover:bg-muted"
+      // onClick={() => window.open(bookmark.url, "_blank", "noopener,noreferrer")}
     >
       <Avatar className="h-11 w-11 text-lg">
         <AvatarImage src={bookmark.image} />
-        <AvatarFallback>{titleToAvatar(bookmark.title)}</AvatarFallback>
+        <AvatarFallback className="border">
+          {titleToAvatar(bookmark.title)}
+        </AvatarFallback>
       </Avatar>
       <div className="flex flex-grow flex-col">
         <h2 className="line-clamp-1">{bookmark.title}</h2>
@@ -38,10 +46,10 @@ export default function BookmarkComponent({ bookmark }: BookmarkProps) {
         size="icon"
         variant="ghost"
         className="h-8 w-8"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.preventDefault()}
       >
         <LucideEllipsisVertical className="h-4 w-4" />
       </Button>
-    </div>
+    </a>
   );
 }

@@ -79,15 +79,15 @@ export default function SearchSortFilter({
 
       {/* Sort & Filter */}
       <div className="flex flex-row gap-2">
-        {!sortDisabled && (
-          <SortDropdown value={sort} onChangeAction={handleSortChange} />
-        )}
         {!filterDisabled && (
           <FilterDropdown
             filterTags={filterTags}
             selected={filter}
             onChangeAction={handleFilterChange}
           />
+        )}
+        {!sortDisabled && (
+          <SortDropdown value={sort} onChangeAction={handleSortChange} />
         )}
         {(!filterDisabled || !sortDisabled) && (
           <div className="block flex-grow sm:hidden" />
