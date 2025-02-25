@@ -25,19 +25,20 @@ const ThemeSwitcher = () => {
     return null;
   }
 
-  const ICON_SIZE = 16;
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" className="gap-2">
           {theme === "light" ? (
-            <Sun key="light" size={ICON_SIZE} />
+            <Sun key="light" className="h-4 w-4" />
           ) : theme === "dark" ? (
-            <Moon key="dark" size={ICON_SIZE} />
+            <Moon key="dark" className="h-4 w-4" />
           ) : (
-            <Laptop key="system" size={ICON_SIZE} />
+            <Laptop key="system" className="h-4 w-4" />
           )}
+          {theme
+            ? theme.substring(0, 1).toUpperCase() + theme.substring(1)
+            : "Theme"}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-content" align="start">
@@ -46,13 +47,13 @@ const ThemeSwitcher = () => {
           onValueChange={(e) => setTheme(e)}
         >
           <DropdownMenuRadioItem className="flex gap-2" value="light">
-            <Sun size={ICON_SIZE} /> <span>Light</span>
+            <Sun className="h-4 w-4" /> <span>Light</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="dark">
-            <Moon size={ICON_SIZE} /> <span>Dark</span>
+            <Moon className="h-4 w-4" /> <span>Dark</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="system">
-            <Laptop size={ICON_SIZE} /> <span>System</span>
+            <Laptop className="h-4 w-4" /> <span>System</span>
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
