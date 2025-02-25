@@ -1,14 +1,32 @@
+"use client";
+
 import { RadioThemeSwitcher } from "@/components/radio-theme-switcher";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 import { LucideFolderX, LucideUserRoundX } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default async function SettingsPage() {
-  const supabase = await createClient();
+export default function SettingsPage() {
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  useEffect(() => {
+    async function fetchUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setUser(data.user);
+      setIsLoadingUser(false);
+    }
+
+    fetchUser();
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
@@ -17,7 +35,8 @@ export default async function SettingsPage() {
       {/* - Password */}
       <h2 className="text-lg font-medium">Account</h2>
       <p>
-        <span className="font-medium">Email:</span> {user?.email}
+        <span className="font-medium">Email: </span>{" "}
+        {isLoadingUser ? "Loading..." : (user?.email ?? "No email found")}
       </p>
 
       {/* Appearance */}
