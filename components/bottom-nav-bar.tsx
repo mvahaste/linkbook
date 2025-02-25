@@ -9,7 +9,7 @@ import {
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useShortcuts } from "@/lib/useShortcuts";
 
 /**
  * Navigation items.
@@ -29,38 +29,16 @@ export default function BottomNavigationBar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  /**
-   * Handle shortcut navigation.
-   */
-  const handleKeyPress = useCallback(
-    (event: KeyboardEvent) => {
-      const activeElement = document.activeElement;
-
-      if (
-        activeElement instanceof HTMLInputElement ||
-        activeElement instanceof HTMLTextAreaElement ||
-        (activeElement &&
-          activeElement.getAttribute("contenteditable") === "true")
-      ) {
-        return;
-      }
-
-      const item = navItems.find((item) => item.key === event.key);
-
-      if (item) {
-        router.push(item.href);
-      }
-    },
-    [router],
+  // Define shortcuts dynamically
+  useShortcuts(
+    navItems.reduce(
+      (acc, item) => ({
+        ...acc,
+        [item.key]: () => router.push(item.href),
+      }),
+      {} as Record<string, () => void>,
+    ),
   );
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [handleKeyPress]);
 
   return (
     <div className="sticky bottom-0 z-50 h-16 w-full border-t border-t-foreground/10 bg-background/95 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">

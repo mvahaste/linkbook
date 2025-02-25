@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { LucideRotateCcw, LucideSearch } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Tag } from "@/lib/utils";
 import SortDropdown from "./sort-dropdown";
 import FilterDropdown from "./filter-dropdown";
+import { useShortcuts } from "@/lib/useShortcuts";
 
 interface SearchSortFilterProps {
   placeholder?: string;
@@ -28,6 +29,12 @@ export default function SearchSortFilter({
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"az" | "za" | "new" | "old">("az");
   const [filter, setFilter] = useState<number[]>([]);
+
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useShortcuts({
+    "/": () => searchRef.current?.focus(),
+  });
 
   const handleSearchChange = (search: string) => {
     setSearch(search);
@@ -61,6 +68,7 @@ export default function SearchSortFilter({
       <div className="relative flex-1">
         <LucideSearch className="absolute left-4 top-3 h-4 w-4 text-muted-foreground" />
         <Input
+          ref={searchRef}
           className="pl-10"
           placeholder={placeholder}
           type="search"
@@ -72,13 +80,13 @@ export default function SearchSortFilter({
       {/* Sort & Filter */}
       <div className="flex flex-row gap-2">
         {!sortDisabled && (
-          <SortDropdown value={sort} onChange={handleSortChange} />
+          <SortDropdown value={sort} onChangeAction={handleSortChange} />
         )}
         {!filterDisabled && (
           <FilterDropdown
             filterTags={filterTags}
             selected={filter}
-            onChange={handleFilterChange}
+            onChangeAction={handleFilterChange}
           />
         )}
         {(!filterDisabled || !sortDisabled) && (

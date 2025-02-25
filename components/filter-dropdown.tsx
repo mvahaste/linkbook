@@ -1,3 +1,5 @@
+"use client";
+
 import { LucideSlidersHorizontal } from "lucide-react";
 import {
   DropdownMenu,
@@ -11,19 +13,19 @@ import { Tag } from "@/lib/utils";
 interface FilterDropdownProps {
   filterTags: Tag[];
   selected: number[];
-  onChange: (selected: number[]) => void;
+  onChangeAction: (selected: number[]) => void;
 }
 
 export default function FilterDropdown({
   filterTags,
   selected,
-  onChange,
+  onChangeAction,
 }: FilterDropdownProps) {
   const handleToggle = (tagId: number) => {
     const newSelection = selected.includes(tagId)
       ? selected.filter((id) => id !== tagId)
       : [...selected, tagId];
-    onChange(newSelection);
+    onChangeAction(newSelection);
   };
 
   return (
@@ -37,7 +39,7 @@ export default function FilterDropdown({
       <DropdownMenuContent className="max-h-72 overflow-scroll">
         <DropdownMenuCheckboxItem
           checked={selected.length === 0}
-          onCheckedChange={() => onChange([])}
+          onCheckedChange={() => onChangeAction([])}
           onSelect={(event) => event.preventDefault()}
         >
           All

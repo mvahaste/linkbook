@@ -10,10 +10,13 @@ import { Button } from "./ui/button";
 
 interface SortDropdownProps {
   value: "az" | "za" | "new" | "old";
-  onChange: (sort: "az" | "za" | "new" | "old") => void;
+  onChangeAction: (sort: "az" | "za" | "new" | "old") => void;
 }
 
-export default function SortDropdown({ value, onChange }: SortDropdownProps) {
+export default function SortDropdown({
+  value,
+  onChangeAction,
+}: SortDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +28,9 @@ export default function SortDropdown({ value, onChange }: SortDropdownProps) {
       <DropdownMenuContent>
         <DropdownMenuRadioGroup
           value={value}
-          onValueChange={(val) => onChange(val as SortDropdownProps["value"])}
+          onValueChange={(val) =>
+            onChangeAction(val as SortDropdownProps["value"])
+          }
         >
           <DropdownMenuRadioItem value="az">Title A-Z</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="za">Title Z-A</DropdownMenuRadioItem>
