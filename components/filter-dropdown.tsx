@@ -1,6 +1,6 @@
 "use client";
 
-import { LucideCheck, LucideSlidersHorizontal } from "lucide-react";
+import { LucideCheck, LucideTags } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn, Tag } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -43,7 +43,7 @@ export default function FilterDropdown({
           aria-expanded={isOpen}
           className="flex gap-2"
         >
-          <LucideSlidersHorizontal className="h-4 w-4" />
+          <LucideTags className="h-4 w-4" />
           Tags
         </Button>
       </PopoverTrigger>
@@ -53,28 +53,29 @@ export default function FilterDropdown({
           <CommandList>
             <CommandEmpty>No tags found.</CommandEmpty>
             <CommandGroup>
-              {filterTags.map((tag) => (
-                <CommandItem
-                  key={tag.id}
-                  value={tag.label} // Ensure the value is a string (consistent with CommandItem's expectations)
-                  onSelect={() => handleToggle(tag.id)} // Handle toggle on selection
-                >
-                  <LucideCheck
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      selected.includes(tag.id) ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {tag.label}
-                </CommandItem>
-              ))}
+              {filterTags
+                .sort((a: Tag, b: Tag) => {
+                  return a.label.localeCompare(b.label);
+                })
+                .map((tag) => (
+                  <CommandItem
+                    key={tag.id}
+                    value={tag.label} // Ensure the value is a string (consistent with CommandItem's expectations)
+                    onSelect={() => handleToggle(tag.id)} // Handle toggle on selection
+                  >
+                    <LucideCheck
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        selected.includes(tag.id) ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                    {tag.label}
+                  </CommandItem>
+                ))}
             </CommandGroup>
           </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
   );
-}
-function useMediaQuery(arg0: string) {
-  throw new Error("Function not implemented.");
 }
