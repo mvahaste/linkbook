@@ -1,5 +1,6 @@
 "use client";
 
+import KeyboardShortcuts from "@/components/keyboard-shortcuts";
 import RadioThemeSwitcher from "@/components/radio-theme-switcher";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
@@ -42,6 +43,10 @@ export default function SettingsPage() {
       {/* Appearance */}
       <h2 className="mt-4 text-lg font-medium">Appearance</h2>
       <RadioThemeSwitcher />
+
+      <h2 className="mt-4 text-lg font-medium">Shortcuts</h2>
+      <p>If you're on the desktop you can use the following shortcuts.</p>
+      <KeyboardShortcuts />
 
       {/* Danger Zone */}
       {/* - Delete all data */}
