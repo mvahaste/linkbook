@@ -2,6 +2,7 @@
 
 import BookmarkComponent from "@/components/bookmark";
 import FadingSkeletons from "@/components/fading-skeletons";
+import NewButton from "@/components/new-button";
 import SearchSortFilter from "@/components/search-sort-filter";
 import { Button } from "@/components/ui/button";
 import { BookmarksProvider, useBookmarksContext } from "@/lib/bookmarksContext";
@@ -13,7 +14,7 @@ import {
 } from "@/lib/useBookmarks";
 import { useTags } from "@/lib/useTags";
 import { Bookmark, Tag } from "@/lib/utils";
-import { LucideX } from "lucide-react";
+import { LucidePlus, LucideX } from "lucide-react";
 import { useState } from "react";
 
 export default function BookmarksPage() {
@@ -43,7 +44,6 @@ function BookmarksContent() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Button onClick={() => openDialog("new")}>Dialog</Button>
       <SearchSortFilter
         filterTags={tags}
         onSearchChange={setQuery}
@@ -68,6 +68,7 @@ function BookmarksContent() {
         ).map((bookmark: Bookmark) => (
           <BookmarkComponent key={bookmark.id} bookmark={bookmark} />
         ))}
+      <NewButton onClick={() => openDialog("new")} />
     </div>
   );
 }
