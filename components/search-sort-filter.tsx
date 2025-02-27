@@ -12,6 +12,7 @@ interface SearchSortFilterProps {
   onSearchChange?: (search: string) => void;
   onSortChange?: (sort: "az" | "za" | "new" | "old") => void;
   sortDisabled?: boolean;
+  defaultSort?: "az" | "za" | "new" | "old";
   onFilterChange?: (filter: Tag[]) => void;
   filterTags?: Tag[];
   filterDisabled?: boolean;
@@ -22,12 +23,15 @@ export default function SearchSortFilter({
   onSearchChange,
   onSortChange,
   sortDisabled,
+  defaultSort,
   onFilterChange,
   filterTags = [],
   filterDisabled,
 }: SearchSortFilterProps) {
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState<"az" | "za" | "new" | "old">("az");
+  const [sort, setSort] = useState<"az" | "za" | "new" | "old">(
+    defaultSort ?? "az",
+  );
   const [filter, setFilter] = useState<number[]>([]);
 
   const searchRef = useRef<HTMLInputElement>(null);

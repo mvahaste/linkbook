@@ -4,23 +4,33 @@ import FadingSkeletons from "@/components/fading-skeletons";
 import SearchSortFilter from "@/components/search-sort-filter";
 import TagComponent from "@/components/tag";
 import { Button } from "@/components/ui/button";
-import { useTags } from "@/lib/useApi";
+import { searchedTags, sortedTags, useTags } from "@/lib/useTags";
+import { Tag } from "@/lib/utils";
 import { LucideX } from "lucide-react";
 import { useState } from "react";
 
 export default function TagsPage() {
   const { tags, status, error } = useTags();
 
+  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"az" | "za" | "new" | "old">("az");
+
   return (
     <div className="flex flex-col gap-4">
-      <SearchSortFilter filterDisabled />
-
+      <SearchSortFilter
+        filterDisabled
+        onSearchChange={setQuery}
+        onSortChange={setSortBy}
+        defaultSort={sortBy}
+      />
       {error && <ErrorMessage error={error} />}
       {status === "loading" && <FadingSkeletons count={8} />}
       {status !== "loading" && tags.length === 0 && <EmptyState />}
       {status === "success" &&
         tags.length > 0 &&
-        tags.map((tag) => <TagComponent key={tag.id} tag={tag} />)}
+        sortedTags(searchedTags(tags, query), sortBy).map((tag: Tag) => (
+          <TagComponent key={tag.id} tag={tag} />
+        ))}
     </div>
   );
 }

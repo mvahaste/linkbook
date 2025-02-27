@@ -4,8 +4,14 @@ import BookmarkComponent from "@/components/bookmark";
 import FadingSkeletons from "@/components/fading-skeletons";
 import SearchSortFilter from "@/components/search-sort-filter";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useBookmarks, useTags } from "@/lib/useApi";
+import {
+  filteredBookmarks,
+  searchedBookmarks,
+  sortedBookmarks,
+  useBookmarks,
+} from "@/lib/useBookmarks";
+import { useTags } from "@/lib/useTags";
+import { Bookmark, Tag } from "@/lib/utils";
 import { LucideX } from "lucide-react";
 import { useState } from "react";
 
@@ -17,9 +23,19 @@ export default function BookmarksPage() {
   } = useBookmarks();
   const { tags, status: tagsStatus, error: tagsError } = useTags();
 
+  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"az" | "za" | "new" | "old">("az");
+  const [filterTags, setFilterTags] = useState<Tag[]>([]);
+
   return (
     <div className="flex flex-col gap-4">
-      <SearchSortFilter filterTags={tags} />
+      <SearchSortFilter
+        filterTags={tags}
+        onSearchChange={setQuery}
+        onSortChange={setSortBy}
+        defaultSort={sortBy}
+        onFilterChange={setFilterTags}
+      />
 
       {bookmarksError && <ErrorMessage error={bookmarksError} />}
       {bookmarksStatus === "loading" && (
@@ -31,7 +47,10 @@ export default function BookmarksPage() {
 
       {bookmarksStatus === "success" &&
         bookmarks.length > 0 &&
-        bookmarks.map((bookmark) => (
+        sortedBookmarks(
+          filteredBookmarks(searchedBookmarks(bookmarks, query), filterTags),
+          sortBy,
+        ).map((bookmark: Bookmark) => (
           <BookmarkComponent key={bookmark.id} bookmark={bookmark} />
         ))}
     </div>
