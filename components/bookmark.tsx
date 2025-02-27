@@ -15,7 +15,6 @@ import {
 } from "./ui/dropdown-menu";
 import { deleteBookmarkAction } from "@/app/actions";
 import { useDialogContext } from "@/lib/dialogContext";
-
 interface BookmarkComponentProps {
   bookmark: Bookmark;
 }
@@ -38,7 +37,7 @@ export default function BookmarkComponent({
       target="_blank"
       rel="noopener noreferrer"
       key={bookmark.id}
-      className={`flex flex-row gap-4 rounded-2xl border p-4 transition-opacity duration-150 ease-out hover:cursor-pointer hover:bg-muted ${
+      className={`relative flex flex-row gap-4 rounded-2xl border p-4 pr-10 transition-all duration-150 ease-out hover:cursor-pointer hover:bg-muted ${
         isDeleting ? "opacity-0" : "opacity-100"
       }`}
     >
@@ -64,7 +63,11 @@ export default function BookmarkComponent({
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="icon" variant="ghost" className="h-8 w-8">
+          <Button
+            size="icon"
+            variant="ghost"
+            className="absolute right-2 top-2 h-8 w-8"
+          >
             <LucideEllipsisVertical className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
