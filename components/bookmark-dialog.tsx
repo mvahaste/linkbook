@@ -111,6 +111,9 @@ export default function BookmarkDialog({
           className="flex flex-col [&>input]:mb-3 [&>label]:mb-2 [&>textarea]:mb-3"
           onSubmit={handleSubmit}
         >
+          {type === "edit" && (
+            <input type="hidden" name="id" value={bookmark?.id} />
+          )}
           <Label htmlFor="url">URL</Label>
           <Input
             disabled={loading !== null}
