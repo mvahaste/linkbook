@@ -136,11 +136,11 @@ export const signOutAction = async () => {
 export const newBookmarkAction = async (formData: FormData) => {
   const supabase = await createClient();
   const url = formData.get("url") as string;
-  const title = (formData.get("title") as string) ?? null;
+  const title = formData.get("title") as string;
   const description = (formData.get("description") as string) ?? null;
   const image = (formData.get("image") as string) ?? null;
 
-  const { data, error } = await supabase.from("bookmarks").insert([
+  const { error } = await supabase.from("bookmarks").insert([
     {
       url,
       title,
@@ -151,8 +151,45 @@ export const newBookmarkAction = async (formData: FormData) => {
 
   if (error) {
     console.error(error.message);
-    return encodedRedirect("error", "/bookmarks", "Failed to create bookmark");
+    return false;
   }
 
-  return redirect("/bookmarks");
+  return true;
+};
+
+export const editBookmarkAction = async (formData: FormData) => {
+  const supabase = await createClient();
+  const id = formData.get("id") as string;
+  const url = formData.get("url") as string;
+  const title = formData.get("title") as string;
+  const description = (formData.get("description") as string) ?? null;
+  const image = (formData.get("image") as string) ?? null;
+
+  const { error } = await supabase
+    .from("bookmarks")
+    .update({ url, title, description, image })
+    .eq("id", id);
+
+  if (error) {
+    console.error(error.message);
+    return true;
+  }
+
+  return false;
+};
+
+export const deleteBookmarkAction = async (id: number) => {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("bookmarks")
+    .delete()
+    .eq("id", id.toString());
+
+  if (error) {
+    console.error(error.message);
+    return false;
+  }
+
+  return true;
 };
