@@ -28,8 +28,8 @@ export default function BookmarkComponent({
       </Avatar>
       <div className="flex flex-grow flex-col">
         <h2 className="line-clamp-1">{bookmark.title}</h2>
-        <p className="line-clamp-1 break-all text-sm text-muted-foreground">
-          {bookmark.description}
+        <p className="text-sm text-muted-foreground">
+          {bookmark.description || bookmark.url}
         </p>
         <div className="mt-1 flex-wrap gap-2">
           {bookmark.tags.map((tag) => (

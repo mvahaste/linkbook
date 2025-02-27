@@ -78,6 +78,7 @@ export default function BookmarkDialog({
           <Label htmlFor="url">URL</Label>
           <Input
             disabled={isLoading}
+            required
             name="url"
             type="url"
             placeholder="URL"
@@ -97,6 +98,7 @@ export default function BookmarkDialog({
           <Label htmlFor="title">Title</Label>
           <Input
             disabled={isLoading}
+            required
             name="title"
             type="text"
             placeholder="Title"
@@ -110,7 +112,7 @@ export default function BookmarkDialog({
             placeholder="Description"
             rows={2}
             value={description}
-            className="h-auto"
+            className="h-auto text-sm"
             onChange={(e) => setDescription(e.target.value)}
           />
           <Label htmlFor="image">Image URL</Label>
