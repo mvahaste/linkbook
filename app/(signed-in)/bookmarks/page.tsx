@@ -1,15 +1,15 @@
 "use client";
 
 import BookmarkComponent from "@/components/bookmark";
-import BookmarkDialog from "@/components/bookmark-dialog";
 import FadingSkeletons from "@/components/fading-skeletons";
 import SearchSortFilter from "@/components/search-sort-filter";
 import { Button } from "@/components/ui/button";
+import { BookmarksProvider, useBookmarksContext } from "@/lib/bookmarksContext";
+import { DialogProvider, useDialogContext } from "@/lib/dialogContext";
 import {
   filteredBookmarks,
   searchedBookmarks,
   sortedBookmarks,
-  useBookmarks,
 } from "@/lib/useBookmarks";
 import { useTags } from "@/lib/useTags";
 import { Bookmark, Tag } from "@/lib/utils";
@@ -17,26 +17,33 @@ import { LucideX } from "lucide-react";
 import { useState } from "react";
 
 export default function BookmarksPage() {
+  return (
+    <BookmarksProvider>
+      <DialogProvider>
+        <BookmarksContent />
+      </DialogProvider>
+    </BookmarksProvider>
+  );
+}
+
+function BookmarksContent() {
   const {
     bookmarks,
     status: bookmarksStatus,
     error: bookmarksError,
-    refresh,
-  } = useBookmarks();
-  const { tags, status: tagsStatus, error: tagsError } = useTags();
+  } = useBookmarksContext();
+
+  const { tags } = useTags();
 
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "za" | "new" | "old">("az");
   const [filterTags, setFilterTags] = useState<Tag[]>([]);
 
+  const { openDialog } = useDialogContext();
+
   return (
     <div className="flex flex-col gap-4">
-      <BookmarkDialog
-        type="new"
-        onNewOrEdit={() => {
-          refresh();
-        }}
-      />
+      <Button onClick={() => openDialog("new")}>Dialog</Button>
       <SearchSortFilter
         filterTags={tags}
         onSearchChange={setQuery}

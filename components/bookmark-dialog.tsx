@@ -5,41 +5,56 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import {
-  LucideSave,
-  LucideSparkles,
-  LucideWandSparkles,
-  LucideWebhook,
-} from "lucide-react";
-import { useState } from "react";
+import { LucideSave, LucideWandSparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 import isURL from "validator/lib/isURL";
 import { Textarea } from "./ui/textarea";
 import { SubmitButton } from "./submit-button";
 import { editBookmarkAction, newBookmarkAction } from "@/app/actions";
+import { useBookmarksContext } from "@/lib/bookmarksContext";
 
 interface BookmarkDialogProps {
   type: "new" | "edit";
   bookmark?: Bookmark;
-  onNewOrEdit?: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export default function BookmarkDialog({
   type,
   bookmark,
-  onNewOrEdit,
+  isOpen,
+  onClose,
 }: BookmarkDialogProps) {
+  const { refresh } = useBookmarksContext();
   const [loading, setLoading] = useState<null | "fetch" | "submit">(null);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [url, setUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
 
-  const [url, setUrl] = useState(bookmark?.url ?? "");
-  const [title, setTitle] = useState(bookmark?.title ?? "");
-  const [description, setDescription] = useState(bookmark?.description ?? "");
-  const [image, setImage] = useState(bookmark?.image ?? "");
+  // Reset fields when bookmark changes
+  useEffect(() => {
+    if (bookmark) {
+      setUrl(bookmark.url);
+      setTitle(bookmark.title);
+      setDescription(bookmark.description ?? "");
+      setImage(bookmark.image ?? "");
+    } else {
+      clearFields();
+    }
+  }, [bookmark]);
+
+  function clearFields() {
+    setUrl("");
+    setTitle("");
+    setDescription("");
+    setImage("");
+  }
 
   async function fetchMetadata(fetchUrl: string) {
     setLoading("fetch");
@@ -47,24 +62,20 @@ export default function BookmarkDialog({
     const result = await fetch(`/api/fetchMetadata?url=${fetchUrl}`);
 
     if (!result.ok) {
-      // TODO: Show error message or toast
       console.error("Failed to fetch metadata");
       setLoading(null);
       return;
     }
 
     const data = await result.json();
-
     setTitle(data.title ?? "");
     setDescription(data.description ?? "");
     setImage(data.image ?? "");
-
     setLoading(null);
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     setLoading("submit");
 
     const formData = new FormData(e.currentTarget);
@@ -79,26 +90,14 @@ export default function BookmarkDialog({
       return;
     }
 
-    onNewOrEdit?.();
+    refresh();
     setLoading(null);
-    setIsOpen(false);
+    clearFields();
+    onClose(); // Close dialog after successful save
   }
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={(open) => {
-        if (!open) {
-          setUrl("");
-          setTitle("");
-          setDescription("");
-          setImage("");
-        }
-
-        setIsOpen(open);
-      }}
-    >
-      <DialogTrigger>Open</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{type === "new" ? "New" : "Edit"} Bookmark</DialogTitle>
@@ -122,15 +121,12 @@ export default function BookmarkDialog({
             value={url}
             onPaste={(e) => {
               const pasted = e.clipboardData.getData("text/plain");
-
               if (isURL(pasted)) {
                 e.currentTarget.value = "";
                 fetchMetadata(pasted);
               }
             }}
-            onChange={(e) => {
-              setUrl(e.target.value);
-            }}
+            onChange={(e) => setUrl(e.target.value)}
           />
           <Label htmlFor="title">Title</Label>
           <Input
