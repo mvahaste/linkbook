@@ -132,3 +132,27 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
+
+export const newBookmarkAction = async (formData: FormData) => {
+  const supabase = await createClient();
+  const url = formData.get("url") as string;
+  const title = (formData.get("title") as string) ?? null;
+  const description = (formData.get("description") as string) ?? null;
+  const image = (formData.get("image") as string) ?? null;
+
+  const { data, error } = await supabase.from("bookmarks").insert([
+    {
+      url,
+      title,
+      description,
+      image,
+    },
+  ]);
+
+  if (error) {
+    console.error(error.message);
+    return encodedRedirect("error", "/bookmarks", "Failed to create bookmark");
+  }
+
+  return redirect("/bookmarks");
+};
