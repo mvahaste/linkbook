@@ -36,11 +36,11 @@ function BookmarksContent() {
 
   const { tags } = useTags();
 
+  const { openDialog } = useDialogContext();
+
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "za" | "new" | "old">("az");
   const [filterTags, setFilterTags] = useState<Tag[]>([]);
-
-  const { openDialog } = useDialogContext();
 
   return (
     <div className="flex flex-col gap-4">

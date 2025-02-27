@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Tag } from "./utils";
 import { getTags } from "./api";
 
@@ -11,20 +11,25 @@ export function useTags() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    getTags()
-      .then((data) => {
-        setTags(data);
-        setStatus("success");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err);
-        setStatus("error");
-      });
+  const fetchTags = useCallback(async () => {
+    setStatus("loading");
+    setError(null);
+    try {
+      const data = await getTags();
+      setTags(data);
+      setStatus("success");
+    } catch (err) {
+      console.error(err);
+      setError(err as Error);
+      setStatus("error");
+    }
   }, []);
 
-  return { tags, status, error };
+  useEffect(() => {
+    fetchTags();
+  }, [fetchTags]);
+
+  return { tags, status, error, refresh: fetchTags };
 }
 
 export function searchedTags(tags: Tag[], query: string): Tag[] {
