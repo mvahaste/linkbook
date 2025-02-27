@@ -1,6 +1,7 @@
 "use client";
 
 import BookmarkComponent from "@/components/bookmark";
+import BookmarkDialog from "@/components/bookmark-dialog";
 import FadingSkeletons from "@/components/fading-skeletons";
 import SearchSortFilter from "@/components/search-sort-filter";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,7 @@ export default function BookmarksPage() {
 
   return (
     <div className="flex flex-col gap-4">
+      <BookmarkDialog type="new" />
       <SearchSortFilter
         filterTags={tags}
         onSearchChange={setQuery}
