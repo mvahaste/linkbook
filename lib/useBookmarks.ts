@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Bookmark, Tag } from "./utils";
 import { getBookmarks } from "./api";
 
@@ -11,20 +11,25 @@ export function useBookmarks() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    getBookmarks()
-      .then((data) => {
-        setBookmarks(data);
-        setStatus("success");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err);
-        setStatus("error");
-      });
+  const fetchBookmarks = useCallback(async () => {
+    setStatus("loading");
+    setError(null);
+    try {
+      const data = await getBookmarks();
+      setBookmarks(data);
+      setStatus("success");
+    } catch (err) {
+      console.error(err);
+      setError(err as Error);
+      setStatus("error");
+    }
   }, []);
 
-  return { bookmarks, status, error };
+  useEffect(() => {
+    fetchBookmarks();
+  }, [fetchBookmarks]);
+
+  return { bookmarks, status, error, refresh: fetchBookmarks };
 }
 
 export function searchedBookmarks(

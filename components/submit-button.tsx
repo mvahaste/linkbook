@@ -20,10 +20,10 @@ export function SubmitButton({ children, isPending, ...props }: Props) {
       type="submit"
       aria-disabled={showLoader}
       {...props}
-      className={cn("relative", props.className)}
+      className={cn("relative flex flex-row items-center", props.className)}
     >
       <div
-        className={`${showLoader ? "opacity-0" : "opacity-100"} flex flex-row gap-2`}
+        className={`${showLoader ? "opacity-0" : "opacity-100"} flex flex-row items-center gap-2`}
       >
         {children}
       </div>

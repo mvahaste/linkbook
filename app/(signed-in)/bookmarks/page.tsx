@@ -21,6 +21,7 @@ export default function BookmarksPage() {
     bookmarks,
     status: bookmarksStatus,
     error: bookmarksError,
+    refresh,
   } = useBookmarks();
   const { tags, status: tagsStatus, error: tagsError } = useTags();
 
@@ -30,7 +31,12 @@ export default function BookmarksPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BookmarkDialog type="new" />
+      <BookmarkDialog
+        type="new"
+        onNewOrEdit={() => {
+          refresh();
+        }}
+      />
       <SearchSortFilter
         filterTags={tags}
         onSearchChange={setQuery}

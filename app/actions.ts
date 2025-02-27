@@ -151,10 +151,10 @@ export const newBookmarkAction = async (formData: FormData) => {
 
   if (error) {
     console.error(error.message);
-    return false;
+    return { error: error.message };
   }
 
-  return true;
+  return { success: true };
 };
 
 export const editBookmarkAction = async (formData: FormData) => {
@@ -172,10 +172,10 @@ export const editBookmarkAction = async (formData: FormData) => {
 
   if (error) {
     console.error(error.message);
-    return true;
+    return { error: error.message };
   }
 
-  return false;
+  return { success: true };
 };
 
 export const deleteBookmarkAction = async (id: number) => {
@@ -188,8 +188,8 @@ export const deleteBookmarkAction = async (id: number) => {
 
   if (error) {
     console.error(error.message);
-    return false;
+    return { error: error.message };
   }
 
-  return true;
+  return { success: true };
 };

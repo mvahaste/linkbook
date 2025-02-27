@@ -9,23 +9,32 @@ import {
 } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { LucideSave, LucideWebhook } from "lucide-react";
+import {
+  LucideSave,
+  LucideSparkles,
+  LucideWandSparkles,
+  LucideWebhook,
+} from "lucide-react";
 import { useState } from "react";
 import isURL from "validator/lib/isURL";
 import { Textarea } from "./ui/textarea";
 import { SubmitButton } from "./submit-button";
-import { newBookmarkAction } from "@/app/actions";
+import { editBookmarkAction, newBookmarkAction } from "@/app/actions";
 
 interface BookmarkDialogProps {
   type: "new" | "edit";
   bookmark?: Bookmark;
+  onNewOrEdit?: () => void;
 }
 
 export default function BookmarkDialog({
   type,
   bookmark,
+  onNewOrEdit,
 }: BookmarkDialogProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState<null | "fetch" | "submit">(null);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [url, setUrl] = useState(bookmark?.url ?? "");
   const [title, setTitle] = useState(bookmark?.title ?? "");
@@ -33,28 +42,51 @@ export default function BookmarkDialog({
   const [image, setImage] = useState(bookmark?.image ?? "");
 
   async function fetchMetadata(fetchUrl: string) {
-    setIsLoading(true);
+    setLoading("fetch");
 
     const result = await fetch(`/api/fetchMetadata?url=${fetchUrl}`);
 
     if (!result.ok) {
       // TODO: Show error message or toast
       console.error("Failed to fetch metadata");
-      setIsLoading(false);
+      setLoading(null);
       return;
     }
 
     const data = await result.json();
 
-    if (data.title) setTitle(data.title);
-    if (data.description) setDescription(data.description);
-    if (data.image) setImage(data.image);
+    setTitle(data.title ?? "");
+    setDescription(data.description ?? "");
+    setImage(data.image ?? "");
 
-    setIsLoading(false);
+    setLoading(null);
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setLoading("submit");
+
+    const formData = new FormData(e.currentTarget);
+
+    const { error } = await (type === "new"
+      ? newBookmarkAction(formData)
+      : editBookmarkAction(formData));
+
+    if (error) {
+      console.error(error);
+      setLoading(null);
+      return;
+    }
+
+    onNewOrEdit?.();
+    setLoading(null);
+    setIsOpen(false);
   }
 
   return (
     <Dialog
+      open={isOpen}
       onOpenChange={(open) => {
         if (!open) {
           setUrl("");
@@ -62,6 +94,8 @@ export default function BookmarkDialog({
           setDescription("");
           setImage("");
         }
+
+        setIsOpen(open);
       }}
     >
       <DialogTrigger>Open</DialogTrigger>
@@ -74,10 +108,13 @@ export default function BookmarkDialog({
               : "Edit your bookmark details."}
           </DialogDescription>
         </DialogHeader>
-        <form className="flex flex-col [&>input]:mb-3 [&>label]:mb-2 [&>textarea]:mb-3">
+        <form
+          className="flex flex-col [&>input]:mb-3 [&>label]:mb-2 [&>textarea]:mb-3"
+          onSubmit={handleSubmit}
+        >
           <Label htmlFor="url">URL</Label>
           <Input
-            disabled={isLoading}
+            disabled={loading !== null}
             required
             name="url"
             type="url"
@@ -97,7 +134,7 @@ export default function BookmarkDialog({
           />
           <Label htmlFor="title">Title</Label>
           <Input
-            disabled={isLoading}
+            disabled={loading !== null}
             required
             name="title"
             type="text"
@@ -107,7 +144,7 @@ export default function BookmarkDialog({
           />
           <Label htmlFor="description">Description</Label>
           <Textarea
-            disabled={isLoading}
+            disabled={loading !== null}
             name="description"
             placeholder="Description"
             rows={2}
@@ -117,7 +154,7 @@ export default function BookmarkDialog({
           />
           <Label htmlFor="image">Image URL</Label>
           <Input
-            disabled={isLoading}
+            disabled={loading !== null}
             name="image"
             type="url"
             placeholder="Image URL"
@@ -127,21 +164,20 @@ export default function BookmarkDialog({
           <div className="flex w-full flex-col justify-between gap-2 sm:flex-row">
             <SubmitButton
               variant="outline"
-              className="gap-2"
-              disabled={isLoading || !isURL(url)}
-              isPending={isLoading}
+              disabled={loading !== null || !isURL(url)}
+              isPending={loading === "fetch"}
               onClick={(e) => {
                 e.preventDefault();
                 fetchMetadata(url);
               }}
             >
-              <LucideWebhook className="h-4 w-4" />
+              <LucideWandSparkles className="h-4 w-4" />
               Autofill
             </SubmitButton>
             <SubmitButton
               variant="default"
-              disabled={isLoading || !isURL(url)}
-              formAction={newBookmarkAction}
+              disabled={loading !== null || !isURL(url)}
+              isPending={loading === "submit"}
             >
               <LucideSave className="h-4 w-4" />
               Save

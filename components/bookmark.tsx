@@ -71,10 +71,10 @@ export default function BookmarkComponent({
           </DropdownMenuItem>
           <DropdownMenuItem
             className="gap-2"
-            onSelect={() => {
+            onSelect={async () => {
               setIsVisible(false);
 
-              const success = deleteBookmarkAction(bookmark.id);
+              const { success } = await deleteBookmarkAction(bookmark.id);
 
               if (!success) {
                 setIsVisible(true);
