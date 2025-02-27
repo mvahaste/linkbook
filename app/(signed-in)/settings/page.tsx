@@ -31,16 +31,12 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Account */}
-      {/* - Email */}
-      {/* - Password */}
       <h2 className="text-lg font-medium">Account</h2>
       <p>
         <span className="font-medium">Email: </span>{" "}
         {isLoadingUser ? "Loading..." : (user?.email ?? "No email found")}
       </p>
 
-      {/* Appearance */}
       <h2 className="mt-4 text-lg font-medium">Appearance</h2>
       <RadioThemeSwitcher />
 
@@ -48,9 +44,6 @@ export default function SettingsPage() {
       <p>If you're on the desktop you can use the following shortcuts.</p>
       <KeyboardShortcuts />
 
-      {/* Danger Zone */}
-      {/* - Delete all data */}
-      {/* - Delete account */}
       <h2 className="mt-4 text-lg font-medium">Danger Zone</h2>
       <Button variant="destructive" className="gap-2">
         <LucideFolderX className="h-4 w-4" />
