@@ -39,7 +39,7 @@ export default function RootLayout({
             <main className="flex min-h-screen flex-col items-center">
               <div className="flex w-full flex-1 flex-col items-center">
                 {/* Header */}
-                <header className="sticky top-0 z-50 flex h-16 w-full justify-center border-b border-b-foreground/10 bg-background/95 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
+                <header className="sticky top-0 z-50 flex h-16 w-full justify-center border-b border-b-foreground/10 bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
                   <div className="flex w-full max-w-2xl items-center justify-between p-3 px-5 text-sm">
                     <p className="text-lg font-medium">{metadata.title}</p>
                     <nav className="flex flex-row items-center gap-2">
