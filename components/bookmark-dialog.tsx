@@ -15,6 +15,7 @@ import { Textarea } from "./ui/textarea";
 import { SubmitButton } from "./submit-button";
 import { editBookmarkAction, newBookmarkAction } from "@/app/actions";
 import { useAppContext } from "@/lib/appContext";
+import TagSelect from "./tag-select";
 
 interface BookmarkDialogProps {
   type: "new" | "edit";
@@ -29,13 +30,14 @@ export default function BookmarkDialog({
   isOpen,
   onClose,
 }: BookmarkDialogProps) {
-  const { refreshBookmarks } = useAppContext();
+  const { refreshBookmarks, tags } = useAppContext();
   const [loading, setLoading] = useState<null | "fetch" | "submit">(null);
 
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
   // Reset fields when bookmark changes
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function BookmarkDialog({
     setTitle("");
     setDescription("");
     setImage("");
+    setSelectedTags([]);
   }
 
   async function fetchMetadata(fetchUrl: string) {
@@ -160,7 +163,13 @@ export default function BookmarkDialog({
             value={image}
             onChange={(e) => setImage(e.target.value)}
           />
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row">
+          <Label htmlFor="tags">Tags</Label>
+          <TagSelect
+            tags={tags}
+            selected={selectedTags}
+            onChangeAction={setSelectedTags}
+          />
+          <div className="mt-3 flex w-full flex-col justify-between gap-2 sm:flex-row">
             <SubmitButton
               variant="outline"
               disabled={loading !== null || !isURL(url)}

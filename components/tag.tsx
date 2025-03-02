@@ -20,7 +20,7 @@ interface TagComponentProps {
 }
 
 export default function TagComponent({ tag }: TagComponentProps) {
-  const { openDialog } = useAppContext();
+  const { openDialog, refreshTags } = useAppContext();
 
   const [isVisible, setIsVisible] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -36,7 +36,7 @@ export default function TagComponent({ tag }: TagComponentProps) {
         isDeleting ? "opacity-0" : "opacity-100"
       } `}
     >
-      <div className="ml-1 h-3 w-3 rounded-full bg-red-500" />
+      {/* <div className="ml-1 h-3 w-3 rounded-full bg-red-500" /> */}
       <div className="flex flex-grow flex-col">
         <h2 className="line-clamp-1">{tag.label}</h2>
       </div>
@@ -70,6 +70,7 @@ export default function TagComponent({ tag }: TagComponentProps) {
                   setIsDeleting(false);
                 } else {
                   setIsVisible(false);
+                  refreshTags();
                 }
               }, 150); // Matches transition duration
             }}

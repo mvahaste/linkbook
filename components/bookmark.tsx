@@ -22,7 +22,7 @@ interface BookmarkComponentProps {
 export default function BookmarkComponent({
   bookmark,
 }: BookmarkComponentProps) {
-  const { openDialog } = useAppContext();
+  const { openDialog, refreshBookmarks } = useAppContext();
 
   const [isVisible, setIsVisible] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -91,6 +91,7 @@ export default function BookmarkComponent({
                   setIsDeleting(false);
                 } else {
                   setIsVisible(false);
+                  refreshBookmarks();
                 }
               }, 150); // Matches transition duration
             }}
