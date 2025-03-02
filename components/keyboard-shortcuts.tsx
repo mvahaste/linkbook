@@ -20,6 +20,12 @@ const shortcuts: Shortcut[] = [
     windows: ["/"],
     category: "Navigation",
   },
+  {
+    action: "Add New",
+    mac: ["A"],
+    windows: ["A"],
+    category: "Navigation",
+  },
   { action: "Unfocus", mac: ["Esc"], windows: ["Esc"], category: "Navigation" },
 ];
 
