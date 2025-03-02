@@ -8,7 +8,7 @@ interface NewButtonProps {
 export default function NewButton({ onClick, ...props }: NewButtonProps) {
   return (
     <Button
-      className="sticky bottom-20 h-14 w-14 gap-2 self-end shadow-sm backdrop-blur-lg"
+      className="fixed bottom-20 h-14 w-14 gap-2 self-end shadow-sm backdrop-blur-lg"
       onClick={onClick}
       {...props}
     >
