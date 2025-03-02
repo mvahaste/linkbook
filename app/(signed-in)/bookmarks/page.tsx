@@ -5,25 +5,21 @@ import FadingSkeletons from "@/components/fading-skeletons";
 import NewButton from "@/components/new-button";
 import SearchSortFilter from "@/components/search-sort-filter";
 import { Button } from "@/components/ui/button";
-import { BookmarksProvider, useBookmarksContext } from "@/lib/bookmarksContext";
-import { DialogProvider, useDialogContext } from "@/lib/dialogContext";
+import { AppProvider, useAppContext } from "@/lib/appContext";
 import {
   filteredBookmarks,
   searchedBookmarks,
   sortedBookmarks,
 } from "@/lib/useBookmarks";
-import { useTags } from "@/lib/useTags";
 import { Bookmark, Tag } from "@/lib/utils";
-import { LucidePlus, LucideX } from "lucide-react";
+import { LucideX } from "lucide-react";
 import { useState } from "react";
 
 export default function BookmarksPage() {
   return (
-    <BookmarksProvider>
-      <DialogProvider>
-        <BookmarksContent />
-      </DialogProvider>
-    </BookmarksProvider>
+    <AppProvider>
+      <BookmarksContent />
+    </AppProvider>
   );
 }
 
@@ -32,11 +28,9 @@ function BookmarksContent() {
     bookmarks,
     status: bookmarksStatus,
     error: bookmarksError,
-  } = useBookmarksContext();
-
-  const { tags } = useTags();
-
-  const { openDialog } = useDialogContext();
+    tags,
+    openDialog,
+  } = useAppContext();
 
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "za" | "new" | "old">("az");
@@ -68,7 +62,7 @@ function BookmarksContent() {
         ).map((bookmark: Bookmark) => (
           <BookmarkComponent key={bookmark.id} bookmark={bookmark} />
         ))}
-      <NewButton onClick={() => openDialog("new")} />
+      <NewButton onClick={() => openDialog("bookmark", "new")} />
     </div>
   );
 }

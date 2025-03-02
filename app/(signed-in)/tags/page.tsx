@@ -5,25 +5,22 @@ import NewButton from "@/components/new-button";
 import SearchSortFilter from "@/components/search-sort-filter";
 import TagComponent from "@/components/tag";
 import { Button } from "@/components/ui/button";
-import { DialogProvider, useDialogContext } from "@/lib/dialogContext";
-import { TagsProvider } from "@/lib/tagsContext";
-import { searchedTags, sortedTags, useTags } from "@/lib/useTags";
+import { AppProvider, useAppContext } from "@/lib/appContext";
+import { searchedTags, sortedTags } from "@/lib/useTags";
 import { Tag } from "@/lib/utils";
 import { LucideX } from "lucide-react";
 import { useState } from "react";
 
 export default function TagsPage() {
   return (
-    <TagsProvider>
-      <DialogProvider>
-        <TagsContent />
-      </DialogProvider>
-    </TagsProvider>
+    <AppProvider>
+      <TagsContent />
+    </AppProvider>
   );
 }
 
 function TagsContent() {
-  const { tags, status, error, refresh } = useTags();
+  const { tags, status, error, openDialog } = useAppContext();
 
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "za" | "new" | "old">("az");
@@ -44,7 +41,7 @@ function TagsContent() {
         sortedTags(searchedTags(tags, query), sortBy).map((tag: Tag) => (
           <TagComponent key={tag.id} tag={tag} />
         ))}
-      <NewButton onClick={() => openDialog("new")} />
+      <NewButton onClick={() => openDialog("tag", "new")} />
     </div>
   );
 }

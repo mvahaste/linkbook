@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { deleteBookmarkAction } from "@/app/actions";
-import { useDialogContext } from "@/lib/dialogContext";
+import { useAppContext } from "@/lib/appContext";
 interface BookmarkComponentProps {
   bookmark: Bookmark;
 }
@@ -22,7 +22,7 @@ interface BookmarkComponentProps {
 export default function BookmarkComponent({
   bookmark,
 }: BookmarkComponentProps) {
-  const { openDialog } = useDialogContext();
+  const { openDialog } = useAppContext();
 
   const [isVisible, setIsVisible] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -75,7 +75,7 @@ export default function BookmarkComponent({
           <DropdownMenuItem
             className="gap-2"
             onSelect={() => {
-              openDialog("edit", bookmark);
+              openDialog("bookmark", "edit", bookmark);
             }}
           >
             <LucidePencil className="h-4 w-4" />

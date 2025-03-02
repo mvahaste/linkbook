@@ -193,3 +193,48 @@ export const deleteBookmarkAction = async (id: number) => {
 
   return { success: true };
 };
+
+export const newTagAction = async (formData: FormData) => {
+  const supabase = await createClient();
+  const label = formData.get("label") as string;
+
+  const { error } = await supabase.from("tags").insert([{ label }]);
+
+  if (error) {
+    console.error(error.message);
+    return { error: error.message };
+  }
+
+  return { success: true };
+};
+
+export const editTagAction = async (formData: FormData) => {
+  const supabase = await createClient();
+  const id = formData.get("id") as string;
+  const label = formData.get("label") as string;
+
+  const { error } = await supabase.from("tags").update({ label }).eq("id", id);
+
+  if (error) {
+    console.error(error.message);
+    return { error: error.message };
+  }
+
+  return { success: true };
+};
+
+export const deleteTagAction = async (id: number) => {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("tags")
+    .delete()
+    .eq("id", id.toString());
+
+  if (error) {
+    console.error(error.message);
+    return { error: error.message };
+  }
+
+  return { success: true };
+};

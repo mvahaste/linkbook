@@ -14,7 +14,7 @@ import isURL from "validator/lib/isURL";
 import { Textarea } from "./ui/textarea";
 import { SubmitButton } from "./submit-button";
 import { editBookmarkAction, newBookmarkAction } from "@/app/actions";
-import { useBookmarksContext } from "@/lib/bookmarksContext";
+import { useAppContext } from "@/lib/appContext";
 
 interface BookmarkDialogProps {
   type: "new" | "edit";
@@ -29,7 +29,7 @@ export default function BookmarkDialog({
   isOpen,
   onClose,
 }: BookmarkDialogProps) {
-  const { refresh } = useBookmarksContext();
+  const { refreshBookmarks } = useAppContext();
   const [loading, setLoading] = useState<null | "fetch" | "submit">(null);
 
   const [url, setUrl] = useState("");
@@ -90,7 +90,7 @@ export default function BookmarkDialog({
       return;
     }
 
-    refresh();
+    refreshBookmarks();
     setLoading(null);
     clearFields();
     onClose(); // Close dialog after successful save
