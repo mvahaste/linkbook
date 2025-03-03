@@ -20,7 +20,7 @@ interface TagComponentProps {
 }
 
 export default function TagComponent({ tag }: TagComponentProps) {
-  const { openDialog, refreshTags } = useAppContext();
+  const { openDialog, deleteTag } = useAppContext();
 
   const [isVisible, setIsVisible] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -70,7 +70,7 @@ export default function TagComponent({ tag }: TagComponentProps) {
                   setIsDeleting(false);
                 } else {
                   setIsVisible(false);
-                  refreshTags();
+                  deleteTag(tag.id);
                 }
               }, 150); // Matches transition duration
             }}

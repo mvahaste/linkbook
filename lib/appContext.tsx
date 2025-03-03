@@ -22,6 +22,8 @@ interface AppContextProps {
   error: Error | null;
   refreshBookmarks: () => void;
   refreshTags: () => void;
+  deleteBookmark: (id: number) => void;
+  deleteTag: (id: number) => void;
   openDialog: (
     category: DialogCategory,
     type: DialogType,
@@ -88,6 +90,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const deleteBookmark = (id: number) => {
+    setBookmarks((bookmarks) => bookmarks.filter((b) => b.id !== id));
+  };
+
+  const deleteTag = (id: number) => {
+    setTags((tags) => tags.filter((t) => t.id !== id));
+  };
+
   useEffect(() => {
     fetchBookmarks();
     fetchTags();
@@ -115,6 +125,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         error,
         refreshBookmarks: fetchBookmarks,
         refreshTags: fetchTags,
+        deleteBookmark,
+        deleteTag,
         openDialog,
         closeDialog,
         dialog,
