@@ -9,13 +9,14 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { LucideSave, LucideWandSparkles } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import isURL from "validator/lib/isURL";
 import { Textarea } from "./ui/textarea";
 import { SubmitButton } from "./submit-button";
 import { editBookmarkAction, newBookmarkAction } from "@/app/actions";
 import { useAppContext } from "@/lib/appContext";
 import TagSelect from "./tag-select";
+import { useShortcuts } from "@/lib/useShortcuts";
 
 interface BookmarkDialogProps {
   type: "new" | "edit";
@@ -171,6 +172,16 @@ export default function BookmarkDialog({
           />
           <div className="mt-3 flex w-full flex-col justify-between gap-2 sm:flex-row">
             <SubmitButton
+              type="submit"
+              variant="default"
+              disabled={loading !== null || !isURL(url)}
+              isPending={loading === "submit"}
+            >
+              <LucideSave className="h-4 w-4" />
+              Save
+            </SubmitButton>
+            <SubmitButton
+              className="order-first"
               variant="outline"
               disabled={loading !== null || !isURL(url)}
               isPending={loading === "fetch"}
@@ -181,14 +192,6 @@ export default function BookmarkDialog({
             >
               <LucideWandSparkles className="h-4 w-4" />
               Autofill
-            </SubmitButton>
-            <SubmitButton
-              variant="default"
-              disabled={loading !== null || !isURL(url)}
-              isPending={loading === "submit"}
-            >
-              <LucideSave className="h-4 w-4" />
-              Save
             </SubmitButton>
           </div>
         </form>
