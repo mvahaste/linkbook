@@ -9,14 +9,13 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { LucideSave, LucideWandSparkles } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import isURL from "validator/lib/isURL";
 import { Textarea } from "./ui/textarea";
 import { SubmitButton } from "./submit-button";
 import { editBookmarkAction, newBookmarkAction } from "@/app/actions";
 import { useAppContext } from "@/lib/appContext";
 import TagSelect from "./tag-select";
-import { useShortcuts } from "@/lib/useShortcuts";
 
 interface BookmarkDialogProps {
   type: "new" | "edit";
@@ -84,6 +83,10 @@ export default function BookmarkDialog({
 
     const formData = new FormData(e.currentTarget);
 
+    if (selectedTags.length > 0) {
+      formData.set("tags", selectedTags.join(","));
+    }
+
     const { error } = await (type === "new"
       ? newBookmarkAction(formData)
       : editBookmarkAction(formData));
@@ -123,15 +126,18 @@ export default function BookmarkDialog({
             disabled={loading !== null}
             required
             name="url"
-            type="url"
+            type="text"
             placeholder="URL"
             value={url}
             onPaste={(e) => {
               const pasted = e.clipboardData.getData("text/plain");
+
               if (isURL(pasted)) {
                 e.currentTarget.value = "";
                 fetchMetadata(pasted);
               }
+
+              console.log(pasted);
             }}
             onChange={(e) => setUrl(e.target.value)}
           />

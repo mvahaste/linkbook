@@ -47,10 +47,11 @@ export default function TagSelect({
           variant="outline"
           role="combobox"
           aria-expanded={isOpen}
-          className="flex gap-2"
+          className="justify-start font-normal"
         >
-          <LucideTags className="h-4 w-4" />
-          Tags
+          {selected.length === 0
+            ? "No tags selected"
+            : `${selected.length} tags selected`}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
@@ -66,7 +67,7 @@ export default function TagSelect({
                     selected.length === 0 ? "opacity-100" : "opacity-0",
                   )}
                 />
-                All
+                None
               </CommandItem>
               {tags
                 .sort((a: Tag, b: Tag) => {

@@ -50,7 +50,7 @@ export default function BookmarkComponent({
         <p className="text-sm text-muted-foreground">
           {bookmark.description || bookmark.url}
         </p>
-        <div className="mt-1 flex-wrap gap-2">
+        <div className="mt-1 flex flex-wrap gap-2">
           {bookmark.tags.map((tag) => (
             <span
               key={tag.id}

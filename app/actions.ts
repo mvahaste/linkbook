@@ -139,19 +139,41 @@ export const newBookmarkAction = async (formData: FormData) => {
   const title = formData.get("title") as string;
   const description = (formData.get("description") as string) ?? null;
   const image = (formData.get("image") as string) ?? null;
+  const tags = (formData.get("tags") as string)?.split(",").map(Number);
 
-  const { error } = await supabase.from("bookmarks").insert([
-    {
-      url,
-      title,
-      description,
-      image,
-    },
-  ]);
+  // Insert the new bookmark
+  const { error: bookmarkError, data: bookmarkData } = await supabase
+    .from("bookmarks")
+    .insert([
+      {
+        url,
+        title,
+        description,
+        image,
+      },
+    ])
+    .select("id");
 
-  if (error) {
-    console.error(error.message);
-    return { error: error.message };
+  // Insert the tags
+  if (tags) {
+    const bookmarkId = bookmarkData?.[0].id;
+    const tagRelations = tags.map((tagId) => ({
+      bookmark_id: bookmarkId,
+      tag_id: tagId,
+    }));
+    const { error: tagError } = await supabase
+      .from("bookmark_to_tag")
+      .insert(tagRelations);
+
+    if (tagError) {
+      console.error(tagError.message);
+      return { error: tagError.message };
+    }
+  }
+
+  if (bookmarkError) {
+    console.error(bookmarkError.message);
+    return { error: bookmarkError.message };
   }
 
   return { success: true };
