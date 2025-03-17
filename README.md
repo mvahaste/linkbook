@@ -38,6 +38,10 @@ To create this project I used the following technologies:
 - [TailwindCSS](https://tailwindcss.com/) for CSS
 - [Vercel](https://vercel.com/) for the hosting
 
+## 📺 Demo Video
+
+![Demo video](demo.mov)
+
 ## 🖼️ Screenshots
 
 ### Home
