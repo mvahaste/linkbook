@@ -40,14 +40,7 @@ To create this project I used the following technologies:
 
 ## 📺 Demo Video
 
-![Demo video](demo.mov)
-[Demo video](demo.mov)
-![Demo video](demo.mp4)
-[Demo video](demo.mp4)
-
-[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/mvahaste/linkbook/demo.mp4)
-
-https://raw.githubusercontent.com/mvahaste/linkbook/demo.mp4
+https://github.com/user-attachments/assets/7a229740-ad31-4f36-89be-28b08ec1d7e1
 
 ## 🖼️ Screenshots
 
