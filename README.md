@@ -48,18 +48,18 @@ To create this project I used the following technologies:
 
 ### Bookmarks
 
-| Desktop                                                     | Mobile                                                    |
-| ----------------------------------------------------------- | --------------------------------------------------------- |
+| Desktop                                                         | Mobile                                                        |
+| --------------------------------------------------------------- | ------------------------------------------------------------- |
 | ![Bookmarks page on Desktop](screenshots/desktop-bookmarks.png) | ![Bookmarks page on Mobile](screenshots/mobile-bookmarks.png) |
 
 ### Tags
 
-| Desktop                                                     | Mobile                                                    |
-| ----------------------------------------------------------- | --------------------------------------------------------- |
+| Desktop                                               | Mobile                                              |
+| ----------------------------------------------------- | --------------------------------------------------- |
 | ![Tags page on Desktop](screenshots/desktop-tags.png) | ![Tags page on Mobile](screenshots/mobile-tags.png) |
 
 ### Settings
 
-| Desktop                                                     | Mobile                                                    |
-| ----------------------------------------------------------- | --------------------------------------------------------- |
+| Desktop                                                       | Mobile                                                      |
+| ------------------------------------------------------------- | ----------------------------------------------------------- |
 | ![Settings page on Desktop](screenshots/desktop-settings.png) | ![Settings page on Mobile](screenshots/mobile-settings.png) |
