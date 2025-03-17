@@ -13,7 +13,7 @@ _I use the free tier of Supabase so the database is most likely paused._
 2. [🤔 Why make this?](#🤔-why-make-this?)
 3. [⚙️ How was it made?](#⚙️-how-was-it-made?)
 4. [🖼️ Screenshots](#🖼️-screenshots)
-   1. [Home](#home)
+   1. [Landing Page](#landing-page)
    2. [Bookmarks](#bookmarks)
    3. [New Bookmark](#new-bookmark)
    4. [Tags](#tags)
@@ -45,11 +45,11 @@ https://github.com/user-attachments/assets/7a229740-ad31-4f36-89be-28b08ec1d7e1
 
 ## 🖼️ Screenshots
 
-### Home
+### Landing Page
 
-| Desktop                                               | Mobile                                              |
-| ----------------------------------------------------- | --------------------------------------------------- |
-| ![Home page on Desktop](screenshots/desktop-home.png) | ![Home page on Mobile](screenshots/mobile-home.png) |
+| Desktop                                                     | Mobile                                                    |
+| ----------------------------------------------------------- | --------------------------------------------------------- |
+| ![Landing page on Desktop](screenshots/desktop-landing.png) | ![Landing page on Mobile](screenshots/mobile-landing.png) |
 
 ### Bookmarks
 
