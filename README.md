@@ -45,6 +45,10 @@ To create this project I used the following technologies:
 ![Demo video](demo.mp4)
 [Demo video](demo.mp4)
 
+[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/mvahaste/linkbook/demo.mp4)
+
+https://raw.githubusercontent.com/mvahaste/linkbook/demo.mp4
+
 ## 🖼️ Screenshots
 
 ### Home
