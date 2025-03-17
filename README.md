@@ -41,6 +41,9 @@ To create this project I used the following technologies:
 ## 📺 Demo Video
 
 ![Demo video](demo.mov)
+[Demo video](demo.mov)
+![Demo video](demo.mp4)
+[Demo video](demo.mp4)
 
 ## 🖼️ Screenshots
 
