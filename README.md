@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> This project is still a work-in-progess, some functionality is incomplete and it is currently not hosted anywhere.
+
 # 🔖 Linkbook
 
 _Keep all your important links in a safe place._
