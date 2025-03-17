@@ -22,11 +22,11 @@ _I use the free tier of Supabase so the database is most likely paused._
 
 Linkbook is a link bookmarking web app made with [Next.js 15](https://nextjs.org/) and [Supabase](https://supabase.com/).
 
-Users can sign up and add a new bookmark, the link metadata (title, description and image) can be autofilled by pasting the link URL or clicking on the "Autofill" button. The user can also create custom tags and add them to their bookmarks, making the searching, sorting and filtering them easier.
+Users can sign up and add a new bookmark, the link metadata (title, description and image) can be autofilled by pasting the link URL or clicking on the "Autofill" button. The user can also create custom tags and add them to their bookmarks, making the searching, sorting and filtering them easier. Most of the operations can be done with keyboard shortcuts.
 
 ## 🤔 Why make this?
 
-I wanted to create something smaller than my last project and focus on certain code practices, as well as add it to my resume.
+I wanted to create something smaller than my last project and focus on certain code practices, try out keyboard shortcuts, as well as add it to my resume.
 
 ## ⚙️ How was it made?
 
