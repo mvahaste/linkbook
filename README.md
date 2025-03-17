@@ -56,6 +56,12 @@ https://github.com/user-attachments/assets/7a229740-ad31-4f36-89be-28b08ec1d7e1
 | --------------------------------------------------------------- | ------------------------------------------------------------- |
 | ![Bookmarks page on Desktop](screenshots/desktop-bookmarks.png) | ![Bookmarks page on Mobile](screenshots/mobile-bookmarks.png) |
 
+### New Bookmark
+
+| Desktop                                                               | Mobile                                                              |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| ![New Bookmark page on Desktop](screenshots/desktop-new-bookmark.png) | ![New Bookmark page on Mobile](screenshots/mobile-new-bookmark.png) |
+
 ### Tags
 
 | Desktop                                               | Mobile                                              |
