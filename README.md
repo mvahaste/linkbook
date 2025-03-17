@@ -15,8 +15,9 @@ _I use the free tier of Supabase so the database is most likely paused._
 4. [🖼️ Screenshots](#🖼️-screenshots)
    1. [Home](#home)
    2. [Bookmarks](#bookmarks)
-   3. [Tags](#tags)
-   4. [Settings](#settings)
+   3. [New Bookmark](#new-bookmark)
+   4. [Tags](#tags)
+   5. [Settings](#settings)
 
 ## 😮 What is it?
 
