@@ -47,9 +47,7 @@ export default function RootLayout({
                     </nav>
                   </div>
                 </header>
-                <div className="mx-auto w-full max-w-2xl flex-grow p-5">
-                  {children}
-                </div>
+                {children}
               </div>
             </main>
           </TooltipProvider>
