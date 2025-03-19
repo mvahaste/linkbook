@@ -17,13 +17,13 @@ export default async function Home() {
         />
       </h1>
       {/* Subheadline */}
-      <p className="mt-6 max-w-[55ch] sm:mx-auto sm:mt-12 sm:text-center">
+      <p className="mt-6 max-w-[55ch] sm:mx-auto sm:text-center">
         Save and organize your favorite links with ease. Add tags, autofill
         details, and access everything from any device — all in one clean,
         simple app.
       </p>
       {/* Get Started Button */}
-      <div className="mt-6 grid w-full place-items-center sm:mt-12">
+      <div className="mt-10 grid w-full place-items-center sm:mt-12">
         <Button asChild>
           <Link
             href="/bookmarks"

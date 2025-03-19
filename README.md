@@ -1,11 +1,11 @@
 > [!IMPORTANT]  
-> This project is still a work-in-progess, some functionality is incomplete and it is currently not hosted anywhere.
+> This project is still a work-in-progess, some functionality is incomplete.
 
 # 🔖 Linkbook
 
 _Keep all your important links in a safe place._
 
-_I use the free tier of Supabase so the database is most likely paused._
+_I use the free tier of Supabase so the database may be paused._
 
 ## Table of Contents
 
