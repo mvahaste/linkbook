@@ -8,6 +8,7 @@ import Link from "next/link";
 export default async function Home() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-grow flex-col p-5 sm:justify-center">
+      {/* Headline */}
       <h1 className="flex w-fit flex-wrap items-center gap-1.5 text-xl font-semibold tracking-tight sm:mx-auto sm:-mt-28 sm:text-center sm:text-4xl">
         All Your Important Links.{" "}
         <WordRotate
@@ -15,11 +16,13 @@ export default async function Home() {
           className="text-primary"
         />
       </h1>
+      {/* Subheadline */}
       <p className="mt-6 max-w-[55ch] sm:mx-auto sm:mt-12 sm:text-center">
         Save and organize your favorite links with ease. Add tags, autofill
         details, and access everything from any device — all in one clean,
         simple app.
       </p>
+      {/* Get Started Button */}
       <div className="mt-6 grid w-full place-items-center sm:mt-12">
         <Button asChild>
           <Link
@@ -31,6 +34,18 @@ export default async function Home() {
           </Link>
         </Button>
       </div>
+      {/* Footer */}
+      <footer className="absolute bottom-0 left-0 right-0 p-2 text-center text-sm text-muted-foreground">
+        View the source code on{" "}
+        <a
+          href="https://github.com/mvahaste/linkbook"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium hover:underline"
+        >
+          GitHub
+        </a>
+      </footer>
       {/* Background */}
       <AnimatedGridPattern
         numSquares={30}
