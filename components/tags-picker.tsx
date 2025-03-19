@@ -15,11 +15,13 @@ import {
 import { useState } from "react";
 
 interface TagsPickerProps {
+  filterTags: Tag[];
   selected: number[];
   onChangeAction: (selected: number[]) => void;
 }
 
 export default function TagsPicker({
+  filterTags,
   selected,
   onChangeAction,
 }: TagsPickerProps) {
