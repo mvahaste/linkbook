@@ -7,7 +7,7 @@ export default async function Layout({
 }) {
   return (
     <div className="flex w-full flex-grow flex-col">
-      <div className="mx-auto w-full max-w-2xl flex-grow p-5">{children}</div>
+      {children}
       <BottomNavigationBar />
     </div>
   );

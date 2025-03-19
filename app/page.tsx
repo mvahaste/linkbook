@@ -1,7 +1,9 @@
 export default async function Home() {
   return (
     <>
-      <p className="pt-8 text-center text-sm text-muted-foreground">Home</p>
+      <h2 className="text-lg font-medium">
+        Keep all your important links in a safe place
+      </h2>
     </>
   );
 }
